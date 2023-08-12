@@ -63,6 +63,23 @@ public synchronized void add_object(ArrayList<block> objects, block cObject)
 }
 //End of Potential function
 
+//Method to create a directional node
+public synchronized void create_node(ArrayList<Node> expandedNodes, int[] size_ofBoard, String sequence, block currentObject, int[] miniGoal, block agent, String new_direction){
+	block currentObjectClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
+	//Clean the arraylists with correct values
+	clean_arraylists(verticalObjects,horizontalObjects,currentObject,currentObjectClone);
+	Node new_node = next_node(size_ofBoard.clone(), sequence, currentObjectClone, new_direction);
+	//Copy the currentArraylists and pass them into the node
+	ArrayList<block> clonedVerticalObjects = copy_arraylist(verticalObjects);
+	ArrayList<block> clonedHorizontalObjects = copy_arraylist(horizontalObjects);
+	new_node.verticalObjects = clonedVerticalObjects;
+	new_node.horizontalObjects = clonedHorizontalObjects;
+	//copy the current minigoal and pass it into the new node and then add the new node to the list of expaneded Nodes
+	new_node.miniGoal =  miniGoal.clone();
+	new_node.agent = new block(agent.T, agent.Direction, agent.StartPoint.clone(), agent.EndPoint.clone(), agent.Size);
+	expandedNodes.add(new_node);
+}
+
 // Method to create motion by changing current object values and returning it with the new modifications
 public synchronized block movement(String direction, block cObject)
 {
@@ -474,23 +491,13 @@ if(currentObject.Direction == 'v')
 	//check if the top spot is occupied or not
 	if(Occupied(down_spot) == null)
 	{
-	//Craete a new node with the current object as a deep clone and move it down then add that node to expanded nodes
-	block currentObjectClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
-	//Clean the arraylists with correct values
-	clean_arraylists(verticalObjects,horizontalObjects,currentObject,currentObjectClone);
-	Node down_node = next_node(size_ofBoard.clone(), sequence, currentObjectClone, "down");
-	//Copy the currentArraylists and pass them into the node
-	ArrayList<block> clonedVerticalObjects = copy_arraylist(verticalObjects);
-	ArrayList<block> clonedHorizontalObjects = copy_arraylist(horizontalObjects);
-	down_node.verticalObjects = clonedVerticalObjects;
-	down_node.horizontalObjects = clonedHorizontalObjects;
-	//copy the current minigoal and pass it into the new node and then add the new node to the list of expaneded Nodes
-	down_node.miniGoal =  miniGoal.clone();
-	down_node.agent = new block(agent.T, agent.Direction, agent.StartPoint.clone(), agent.EndPoint.clone(), agent.Size);
-	expandedNodes.add(down_node);
+	//Some function
+	//use create_node method and pass the correct values
+	create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "down");
 	}
 	else
 	{
+	//Potential BUG
 	//This is where it is jumping to , to go down instead of the block above
 	//store the object that blocks the agent
 	block down_block = Occupied(down_spot);

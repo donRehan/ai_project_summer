@@ -1,4 +1,9 @@
-Create your fork , then start working there with a nice README file too !
+Updates
+created move down node , using a clean code approach. Thus far I changed vertical Objects movement down to be of a more DRY approach and it worked.
+Now Right movement will also be revised.
+
+BUGS
+Maybe the actual bug is in clean_array
 
 Fix left first
 

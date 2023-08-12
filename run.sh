@@ -1,6 +1,6 @@
 #!/bin/bash
 
-javac -d bin/ src/*.java
+javac -g -d bin/ src/*.java
 
 if [ $# -eq 0 ]
 then
