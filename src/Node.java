@@ -65,6 +65,8 @@ public synchronized void add_object(ArrayList<block> objects, block cObject)
 
 //Method to create a directional node
 public synchronized void create_node(ArrayList<Node> expandedNodes, int[] size_ofBoard, String sequence, block currentObject, int[] miniGoal, block agent, String new_direction){
+
+	if(currentObject.T.equals("block")){
 	block currentObjectClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
 	//Clean the arraylists with correct values
 	clean_arraylists(verticalObjects,horizontalObjects,currentObject,currentObjectClone);
@@ -78,6 +80,25 @@ public synchronized void create_node(ArrayList<Node> expandedNodes, int[] size_o
 	new_node.miniGoal =  miniGoal.clone();
 	new_node.agent = new block(agent.T, agent.Direction, agent.StartPoint.clone(), agent.EndPoint.clone(), agent.Size);
 	expandedNodes.add(new_node);
+	}
+
+	if(currentObject.T.equals("agent")){
+	//block agentClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
+	block agentClone = (block) currentObject.clone();
+	//Create a new node with current node object but as a deep clone
+	block currentObjectClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
+	//Change the points of the object based on the movement
+	//currentObjectClone = movement("right", currentObjectClone);
+	//Create the node and increment its sequence by the word right
+	Node right_node = next_node(size_ofBoard.clone(), sequence, currentObjectClone, "right");
+	//Make sure to deep clone all other instance variables of the node and add them into the newly created node.
+	ArrayList<block> clonedVerticalObjects = copy_arraylist(verticalObjects);
+	ArrayList<block> clonedHorizontalObjects = copy_arraylist(horizontalObjects);
+	right_node.verticalObjects = clonedVerticalObjects;
+	right_node.horizontalObjects = clonedHorizontalObjects;
+	right_node.agent = agentClone;
+	expandedNodes.add(right_node);
+	}
 }
 
 // Method to create motion by changing current object values and returning it with the new modifications
@@ -375,24 +396,7 @@ int[] right_spot = new int[] {currentObject.EndPoint[0] + 1, currentObject.EndPo
 //check if the left spot is occupied
 //Check if it is not occupied then you can move by doing necessary adjustments
 if(Occupied(right_spot) == null){
-
-//block agentClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
-block agentClone = (block) currentObject.clone();
-//Create a new node with current node object but as a deep clone
-block currentObjectClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
-//Change the points of the object based on the movement
-//currentObjectClone = movement("right", currentObjectClone);
-//Create the node and increment its sequence by the word right
-Node right_node = next_node(size_ofBoard.clone(), sequence, currentObjectClone, "right");
-
-//Make sure to deep clone all other instance variables of the node and add them into the newly created node.
-ArrayList<block> clonedVerticalObjects = copy_arraylist(verticalObjects);
-ArrayList<block> clonedHorizontalObjects = copy_arraylist(horizontalObjects);
-right_node.verticalObjects = clonedVerticalObjects;
-right_node.horizontalObjects = clonedHorizontalObjects;
-right_node.agent = agentClone;
-expandedNodes.add(right_node);
-
+	create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "right");
 }
 else{
 //store the object that blocks the agent

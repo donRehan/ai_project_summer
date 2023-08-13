@@ -230,7 +230,15 @@ String problem = GenGrid();
 //int maxDepth = 8; // Set your desired maximum depth
 //String solution = iddfs_Search(problem, maxDepth);
 //System.out.println("Solution: " + solution);
-System.out.println(bf_Search(problem));
+//System.out.println(bf_Search(problem));
+String test = "->change->down->AgentChange->right->right";
+if (bf_Search(problem).equals(test)) {
+	System.out.println("Test Passed");
+} else {
+	System.out.println("Test Failed");
+	System.out.println("The output is: " + bf_Search(problem));
+}
+
 }
 
 }
