@@ -399,14 +399,19 @@ if(Occupied(right_spot) == null){
 	create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "right");
 }
 else{
+// I think pass mini goal and agentclone and thats it ?
 //store the object that blocks the agent
+//Diff
+//Mini goal here = right_spot deep clone
+//CurrentObjectClone = rightblock deep clone
+//pass into the string "change"
+//Bug ? ; now you need to add the current Object back into the arraylist ! Else it gets lost !?
 block right_block = Occupied(right_spot);
 block agentClone = (block) currentObject.clone();
 //Create a new node with current node object but as a deep clone
 block currentObjectClone = new block(right_block.T, right_block.Direction, right_block.StartPoint.clone(), right_block.EndPoint.clone(), right_block.Size);
 //Create the node and increment its sequence by the word right
 Node right_node = next_node(size_ofBoard.clone(), sequence, currentObjectClone, "change");
-
 //Make sure to deep clone all other instance variables of the node and add them into the newly created node.
 ArrayList<block> clonedVerticalObjects = copy_arraylist(verticalObjects);
 ArrayList<block> clonedHorizontalObjects = copy_arraylist(horizontalObjects);
@@ -442,21 +447,8 @@ if(currentObject.Direction == 'v')
 	//check if the top spot is occupied or not
 	if(Occupied(top_spot) == null)
 	{
-	//Craete a new node with the current object as a deep clone and move it up then add that node to expanded nodes
-	block currentObjectClone = new block(currentObject.T, currentObject.Direction, currentObject.StartPoint.clone(), currentObject.EndPoint.clone(), currentObject.Size);
-	//currentObjectClone = movement("up", currentObjectClone);
-	//Clean the arraylists with correct values
-	clean_arraylists(verticalObjects,horizontalObjects,currentObject,currentObjectClone);
-	Node up_node = next_node(size_ofBoard.clone(), sequence, currentObjectClone, "up");
-	//Copy the currentArraylists and pass them into the node
-	ArrayList<block> clonedVerticalObjects = copy_arraylist(verticalObjects);
-	ArrayList<block> clonedHorizontalObjects = copy_arraylist(horizontalObjects);
-	up_node.verticalObjects = clonedVerticalObjects;
-	up_node.horizontalObjects = clonedHorizontalObjects;
-	//copy the current minigoal and pass it into the new node and then add the new node to the list of expaneded Nodes
-	up_node.miniGoal =  miniGoal.clone();
-	up_node.agent = new block(agent.T, agent.Direction, agent.StartPoint.clone(), agent.EndPoint.clone(), agent.Size);
-	expandedNodes.add(up_node);
+	create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "up");
+
 	}
 	else
 	{

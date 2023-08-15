@@ -1,7 +1,5 @@
 Updates
 Made right movement clean and works fine 
-Now however I tried changing the inital checks for the currentObject type and a bug happens
-Will revise my current approach and see if I can fix this issue.
 
 BUGS
 Maybe the actual bug is in clean_array
