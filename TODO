@@ -1,5 +1,6 @@
 Updates
-Made right movement clean and works fine 
+Now right movement when blocked changes correctly.
+I hence just need to clean the output only. Then add the horizontal objects too and we are done.
 
 BUGS
 Maybe the actual bug is in clean_array

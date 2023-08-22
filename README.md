@@ -19,3 +19,30 @@ Hence we want to fix that.
 > o o x . 
 > . . x . 
 > . b b .
+
+# Update
+
+``` bash
+[I] ~/d/ai_project_summer (main)> ./run.sh execute
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Test Failed
+The output is: ->changedown->change->AgentChangeright->changeright->change
+[I] ~/d/ai_project_summer (main)> ./run.sh execute
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Test Failed
+The output is: ->changedown->->change->AgentChangeright->->changeright->->change
+[I] ~/d/ai_project_summer (main)> ./run.sh execute
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Test Failed
+The output is: ->changedown->->change->AgentChangeright->->changeright->->change
+[I] ~/d/ai_project_summer (main)> ./run.sh execute
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Test Failed
+The output is: ->changedown->->change->AgentChangeright->->changeright->->change
+[I] ~/d/ai_project_summer (main)> 
+```
+As can be seen the bugs are resolved in these cases what is left is now cleaning up the current output format.
