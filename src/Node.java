@@ -55,7 +55,7 @@ public class Node {
 			clean_arraylists(verticalObjects, horizontalObjects, currentObject, currentObjectClone);
 
 			// Create the new node and set its properties
-			Node newNode = createNewNode(sizeOfBoard.clone(), sequence + moveDirection, currentObjectClone, ( block ) agent.clone());
+			Node newNode = createNewNode(sizeOfBoard.clone(), sequence + "->" + moveDirection, currentObjectClone, ( block ) agent.clone());
 			newNode.miniGoal = miniGoal.clone();
 
 			// Add the new node to the list of expanded nodes
@@ -360,7 +360,7 @@ private Node createNewNode(int[] sizeOfBoard, String sequence, block currentObje
 		{
 			block agentClone = new block(agent.T, agent.Direction, agent.StartPoint.clone(), agent.EndPoint.clone(), agent.Size);
 			//create a new node
-			String seq = sequence + "->" + "AgentChange";
+			String seq = sequence + "->" + "AgentChange" + "->";
 			//This part too creates an issue and creates an empty node.
 			//All the below is shallow cloned and hence creates an empty objects
 			//System.out.println("Here");
@@ -435,7 +435,8 @@ private Node createNewNode(int[] sizeOfBoard, String sequence, block currentObje
 				//Check if it is not occupied then you can move by doing necessary adjustments
 				if(Occupied(right_spot) == null){
 					//create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "right");
-					createNode(expandedNodes, size_ofBoard, "right", currentObject, miniGoal, agent);
+					//createNode(expandedNodes, size_ofBoard, "right", currentObject, miniGoal, agent);
+					create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "right");
 				}
 				else{
 					// I think pass mini goal and agentclone and thats it ?
@@ -451,6 +452,7 @@ private Node createNewNode(int[] sizeOfBoard, String sequence, block currentObje
 					block currentObjectClone = new block(right_block.T, right_block.Direction, right_block.StartPoint.clone(), right_block.EndPoint.clone(), right_block.Size);
 					//Create the node and increment its sequence by the word right
 					Node right_node = next_node(size_ofBoard.clone(), sequence, currentObjectClone, "change");
+					//print the current object as a string 
 					//Make sure to deep clone all other instance variables of the node and add them into the newly created node.
 					ArrayList<block> clonedVerticalObjects = copy_arraylist(verticalObjects);
 					ArrayList<block> clonedHorizontalObjects = copy_arraylist(horizontalObjects);
@@ -502,7 +504,8 @@ private Node createNewNode(int[] sizeOfBoard, String sequence, block currentObje
 						//String seq = sequence + "AgentChange";
 
 						// Create a new node using the modified createNode method
-						createNode(expandedNodes, size_ofBoard, "AgentChange", currentObject, top_spot.clone(), agentClone);
+						//createNode(expandedNodes, size_ofBoard, "AgentChange", currentObject, top_spot.clone(), agentClone);
+						create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "up");
 					}
 				}
 
@@ -520,7 +523,8 @@ private Node createNewNode(int[] sizeOfBoard, String sequence, block currentObje
 						//Some function
 						//use create_node method and pass the correct values
 						//create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "down");
-						createNode(expandedNodes, size_ofBoard, "down", currentObject, miniGoal, agent);
+						//createNode(expandedNodes, size_ofBoard, "down", currentObject, miniGoal, agent);
+						create_node(expandedNodes, size_ofBoard, sequence, currentObject,  miniGoal, agent, "down");
 					}
 					else
 					{
