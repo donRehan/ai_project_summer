@@ -1,6 +1,5 @@
 Updates
-Now right movement when blocked changes correctly.
-I hence just need to clean the output only. Then add the horizontal objects too and we are done.
+I believe the fix is in the minigoal check place as its where AgentChange takes place
 
 BUGS
 Maybe the actual bug is in clean_array
